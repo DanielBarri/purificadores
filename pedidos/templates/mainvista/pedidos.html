@@ -19,7 +19,7 @@
                 <td>{{ pedido.cliente_nombre }}</td>
                 <td>
                     <span
-                        class="badge {% if pedido.estado == 'PENDIENTE' %}bg-warning text-dark {% elif pedido.estado == 'EN_PREPARACION' %}bg-info text-dark {% elif pedido.estado == 'LISTO' %}bg-primary {% else %}bg-success{% endif %}">
+                        class="badge {% if pedido.estado == 'POR_CONFIRMAR' %}bg-info text-dark {% elif pedido.estado == 'RECHAZADO' %}bg-danger text-white {% elif pedido.estado == 'PAGADO' %}bg-success {% elif pedido.estado == 'PREPARANDO_PEDIDO' %}bg-warning text-dark {% elif pedido.estado == 'LISTO_PARA_ENTREGA' %}bg-primary {% elif pedido.estado == 'EN_TRANSITO' %}bg-secondary {% else %}bg-success{% endif %}">
                         {{ pedido.get_estado_display }}
                     </span>
                 </td>
@@ -34,81 +34,25 @@
                             name="nuevo_estado"
                             onchange="this.form.submit()"
                             class="form-select form-select-sm d-inline-block w-auto">
-                            <option
-                                value="POR_CONFIRMAR"
-                                {%
-                                if
-                                pedido.estado=""
-                                ="POR_CONFIRMAR"
-                                %}selected{%
-                                endif
-                                %}>
+                            <option value="POR_CONFIRMAR" {% if pedido.estado == "POR_CONFIRMAR" %}selected{% endif %}>
                                 Por Confirmar
                             </option>
-                            <option
-                                value="RECHAZADO"
-                                {%
-                                if
-                                pedido.estado=""
-                                ="RECHAZADO"
-                                %}selected{%
-                                endif
-                                %}>
+                            <option value="RECHAZADO" {% if pedido.estado == "RECHAZADO" %}selected{% endif %}>
                                 Rechazado
                             </option>
-                            <option
-                                value="PAGADO"
-                                {%
-                                if
-                                pedido.estado=""
-                                ="PAGADO"
-                                %}selected{%
-                                endif
-                                %}>
+                            <option value="PAGADO" {% if pedido.estado == "PAGADO" %}selected{% endif %}>
                                 Pagado
                             </option>
-                            <option
-                                value="PREPARANDO_PEDIDO"
-                                {%
-                                if
-                                pedido.estado=""
-                                ="PREPARANDO_PEDIDO"
-                                %}selected{%
-                                endif
-                                %}>
+                            <option value="PREPARANDO_PEDIDO" {% if pedido.estado == "PREPARANDO_PEDIDO" %}selected{% endif %}>
                                 Preparando Pedido
                             </option>
-                            <option
-                                value="LISTO_PARA_ENTREGA"
-                                {%
-                                if
-                                pedido.estado=""
-                                ="LISTO_PARA_ENTREGA"
-                                %}selected{%
-                                endif
-                                %}>
+                            <option value="LISTO_PARA_ENTREGA" {% if pedido.estado == "LISTO_PARA_ENTREGA" %}selected{% endif %}>
                                 Listo para Entrega
                             </option>
-                            <option
-                                value="EN_TRANSITO"
-                                {%
-                                if
-                                pedido.estado=""
-                                ="EN_TRANSITO"
-                                %}selected{%
-                                endif
-                                %}>
+                            <option value="EN_TRANSITO" {% if pedido.estado == "EN_TRANSITO" %}selected{% endif %}>
                                 En Tránsito
                             </option>
-                            <option
-                                value="ENTREGADO"
-                                {%
-                                if
-                                pedido.estado=""
-                                ="ENTREGADO"
-                                %}selected{%
-                                endif
-                                %}>
+                            <option value="ENTREGADO" {% if pedido.estado == "ENTREGADO" %}selected{% endif %}>
                                 Entregado
                             </option>
                         </select>
