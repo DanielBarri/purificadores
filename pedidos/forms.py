@@ -8,6 +8,7 @@ class ProductoModelForm(forms.ModelForm):
         fields = ['nombre', 'precio', 'categoria', 'disponible', 'imagen']
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'modelo': forms.TextInput(attrs={'class': 'form-control'}),
             'precio': forms.NumberInput(attrs={'class': 'form-control'}),
             'categoria': forms.Select(attrs={'class': 'form-select'}),
             'disponible': forms.CheckboxInput(attrs={'class': 'form-check-input'}),

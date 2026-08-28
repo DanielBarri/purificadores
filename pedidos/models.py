@@ -14,7 +14,8 @@ class Producto(models.Model):
         ('PURIFICADORES_INDUSTRIALES', 'Purificadores Industriales'),
     ]
     nombre = models.CharField(max_length=100)
-    precio = models.DecimalField(max_digits=6, decimal_places=2)
+    modelo = models.CharField(max_length=50, null=True, blank=True)
+    precio = models.DecimalField(max_digits=10, decimal_places=2, validators=[validar_precio_positivo])
     categoria = models.CharField(max_length=30, choices=CATEGORIAS)
     disponible = models.BooleanField(default=True)
 

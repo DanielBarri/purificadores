@@ -9,7 +9,7 @@ admin.site.index_title = "Gestión de Productos y Pedidos"
 
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre', 'precio', 'categoria', 'disponible')
+    list_display = ('id', 'nombre','modelo', 'precio', 'categoria', 'disponible')
     list_filter = ('categoria', 'disponible')
     search_fields = ('nombre',)
 
