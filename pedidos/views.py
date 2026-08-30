@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 # Create your views here.
 from rest_framework import viewsets, status
@@ -6,6 +7,14 @@ from rest_framework.response import Response
 
 from pedidos.dao.tiendadao import ProductoDAO, PedidoDAO
 from pedidos.serializers import ProductoSerializer, PedidoSerializer
+
+# ==========================================
+# 0. ROLES
+# ==========================================
+
+def es_vendedor(user):
+    """Verifica si el usuario tiene rol de vendedor"""
+    return user.is_authenticated and (user.groups.filter(name='Vendedor').exists() or user.is_superuser)
 
 # ==========================================
 # 1. VISTAS WEB (HTML)
@@ -16,6 +25,8 @@ def tienda_view(request):
     productos = ProductoDAO.obtener_disponibles()
     return render(request, 'mainvista/tienda.html', {'productos': productos})
 
+@login_required
+@user_passes_test(es_vendedor, login_url='/admin/login')
 def pedidos_view(request):
     """Muestra los pedidos al cliente utilizando el DAO"""
     pedidos = PedidoDAO.obtener_todos()

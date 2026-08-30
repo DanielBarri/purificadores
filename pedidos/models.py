@@ -36,9 +36,12 @@ class Pedido(models.Model):
         ('ENTREGADO', 'Entregado'),
     ]
     cliente_nombre = models.CharField(max_length=100)
+    # Relacion 
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='pedidos', null=True, blank=True)
     fecha = models.DateTimeField(auto_now_add=True)
     estado = models.CharField(max_length=20, choices=ESTADOS, default='POR_CONFIRMAR')
     total = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
+
 
     def __str__(self):
         return f"Orden #{self.id} - {self.cliente_nombre} ({self.estado})"
