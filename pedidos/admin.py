@@ -76,7 +76,7 @@ class ProductoAdmin(admin.ModelAdmin):
 
 @admin.register(Pedido)
 class PedidoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'cliente_nombre', 'estado', 'total', 'fecha')
+    list_display = ('id', 'cliente_nombre','producto', 'estado', 'total', 'fecha')
     list_filter = ('estado', 'fecha')
     search_fields = ('cliente_nombre',)
 

@@ -33,6 +33,7 @@ class PedidoDAO:
         if producto:
             return Pedido.objects.create(
                 cliente_nombre=cliente_nombre,
+                producto=producto,
                 total=producto.precio
             )
         return None
