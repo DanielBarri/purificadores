@@ -20,6 +20,11 @@ def es_vendedor(user):
 # 1. VISTAS WEB (HTML)
 # ==========================================
 
+def landing_view(request):
+    """Muestra la página de inicio del sitio web"""
+    productos_destacados = ProductoDAO.obtener_destacados()
+    return render(request, 'mainvista/landing.html', {'productos_destacados': productos_destacados})
+
 def tienda_view(request):
     """Muestra el catálogo del la tienda al cliente utilizando el DAO"""
     productos = ProductoDAO.obtener_disponibles()

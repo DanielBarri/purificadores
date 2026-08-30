@@ -13,6 +13,10 @@ class ProductoDAO:
         return Producto.objects.filter(disponible=True)
 
     @staticmethod
+    def obtener_destacados(cantidad: int = 3) -> List[Producto]:
+        return Producto.objects.filter(disponible=True)[:cantidad]
+
+    @staticmethod
     def obtener_por_id(producto_id: int) -> Optional[Producto]:
         try:
             return Producto.objects.get(id=producto_id)

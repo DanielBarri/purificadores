@@ -25,11 +25,12 @@
 
         <header class="site-header glass-panel">
             <nav class="site-nav container">
-                <a class="brand" href="{% url 'tienda' %}">
+                <a class="brand" href="{% url 'landing' %}">
                     <span class="material-symbols-outlined">water_drop</span>
-                    Aquosan Purificadores
+                    Aquosan
                 </a>
                 <div class="nav-links">
+                    <a class="nav-link" href="{% url 'landing' %}">Inicio</a>
                     <a class="nav-link" href="{% url 'tienda' %}">Tienda</a>
                     <a class="nav-link" href="{% url 'pedidos' %}">Pedidos</a>
                     <a class="nav-link" href="/admin/" target="_blank">Panel Admin</a>
@@ -38,5 +39,21 @@
         </header>
 
         <main class="container page-content">{% block content %}{% endblock %}</main>
+
+        <footer class="site-footer glass-panel container">
+            <div class="footer-brand">
+                <span class="footer-brand__name">
+                    <span class="material-symbols-outlined">water_drop</span>
+                    Aquosan Purificadores
+                </span>
+                <p class="footer-brand__tagline">
+                    Agua pura por ósmosis inversa, para tu hogar y tu industria.
+                </p>
+            </div>
+            <div class="footer-links">
+                <a class="nav-link" href="{% url 'tienda' %}">Tienda</a>
+                <a class="nav-link" href="{% url 'pedidos' %}">Pedidos</a>
+            </div>
+        </footer>
     </body>
 </html>

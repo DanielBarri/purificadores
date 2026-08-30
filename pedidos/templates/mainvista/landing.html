@@ -1,0 +1,115 @@
+{% extends 'mainvista/base.html' %} {% block content %}
+
+<section class="hero glass-panel">
+    <div class="hero__content">
+        <span class="badge-glass">Ósmosis Inversa de Alto Rendimiento</span>
+        <h1 class="hero__title">Agua pura para tu hogar y tu industria</h1>
+        <p class="hero__text">
+            Sistemas de purificación por ósmosis inversa de múltiples etapas,
+            que eliminan sedimentos, cloro y contaminantes disueltos del agua
+            que consumes todos los días.
+        </p>
+        <div class="hero__actions">
+            <a href="{% url 'tienda' %}" class="btn btn-primary btn-lg">Ver Catálogo</a>
+            <a href="#tecnologia" class="btn btn-secondary btn-lg">Conocer la Tecnología</a>
+        </div>
+    </div>
+    <div class="hero__visual">
+        <span class="material-symbols-outlined">water_drop</span>
+    </div>
+</section>
+
+<section class="section" id="tecnologia">
+    <div class="section__header">
+        <h2 class="section-title">Tecnología de Filtración</h2>
+        <p class="section-subtitle">
+            Diseñados para ofrecer agua limpia de forma constante, en casa o en la industria.
+        </p>
+    </div>
+    <div class="feature-grid">
+        <div class="feature-card glass-panel">
+            <div class="feature-card__icon">
+                <span class="material-symbols-outlined">water_drop</span>
+            </div>
+            <h3 class="feature-card__title">Ósmosis Inversa</h3>
+            <p class="feature-card__text">
+                Membranas de alta precisión que retienen sedimentos, cloro y
+                sólidos disueltos en cada etapa del proceso de filtrado.
+            </p>
+        </div>
+        <div class="feature-card glass-panel">
+            <div class="feature-card__icon">
+                <span class="material-symbols-outlined">filter_alt</span>
+            </div>
+            <h3 class="feature-card__title">Filtros y Refacciones</h3>
+            <p class="feature-card__text">
+                Cartuchos y membranas de repuesto para mantener tu sistema
+                funcionando al máximo rendimiento por más tiempo.
+            </p>
+        </div>
+        <div class="feature-card glass-panel">
+            <div class="feature-card__icon">
+                <span class="material-symbols-outlined">factory</span>
+            </div>
+            <h3 class="feature-card__title">Uso Doméstico e Industrial</h3>
+            <p class="feature-card__text">
+                Desde sistemas compactos para el hogar hasta soluciones de
+                alto flujo para negocios e industria.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section__header">
+        <h2 class="section-title">Productos Destacados</h2>
+        <p class="section-subtitle">Una muestra de nuestro catálogo disponible.</p>
+    </div>
+    <div class="product-grid">
+        {% for producto in productos_destacados %}
+        <div class="product-card glass-panel">
+            {% if producto.imagen %}
+            <div class="product-card__image-wrap">
+                <img
+                    src="{{ producto.imagen.url }}"
+                    class="product-card__image"
+                    alt="{{ producto.nombre }}" />
+            </div>
+            {% else %}
+            <div class="product-card__placeholder">
+                <span>Sin imagen</span>
+            </div>
+            {% endif %}
+            <div class="product-card__body">
+                <div class="product-card__title-row">
+                    <h5 class="product-card__title">{{ producto.nombre }}</h5>
+                    <span class="badge-glass">{{ producto.get_categoria_display }}</span>
+                </div>
+                <h6 class="product-card__price">${{ producto.precio }}</h6>
+            </div>
+            <div class="product-card__footer">
+                <form action="{% url 'crear_pedido' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="producto_id" value="{{ producto.id }}" />
+                    <div class="buy-form__row">
+                        <input
+                            type="text"
+                            name="cliente_nombre"
+                            class="text-input"
+                            placeholder="Tu nombre"
+                            required />
+                        <button type="submit" class="btn btn-primary">Comprar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% empty %}
+        <p>Aún no hay productos disponibles.</p>
+        {% endfor %}
+    </div>
+    <div class="text-center">
+        <a href="{% url 'tienda' %}" class="btn btn-secondary btn-lg">Ver Catálogo Completo</a>
+    </div>
+</section>
+
+{% endblock %}
