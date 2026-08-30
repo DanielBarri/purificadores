@@ -1,16 +1,4 @@
 :root {
-    /* Paleta base existente (usada por tienda.html) */
-    --color-primary: #0d6efd;
-    --color-dark: #1a1a1a;
-    --color-text: #212529;
-    --color-muted: #6c757d;
-    --color-bg: #f8f9fa;
-    --color-white: #ffffff;
-    --color-success: #198754;
-    --color-border: #ced4da;
-    --radius: 8px;
-
-    /* Sistema de diseño nuevo (glassmorphism) */
     --color-bg-start: #eef2ff;
     --color-bg-end: #c7d2fe;
     --color-orb-indigo: #818cf8;
@@ -214,9 +202,12 @@ body {
     padding: 2rem 1rem;
 }
 
-/* Utilidades generales (usadas por tienda.html) */
+/* Utilidades generales */
 .page-title {
     margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
 }
 
 .btn {
@@ -229,29 +220,37 @@ body {
 }
 
 .btn-primary {
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    border-radius: 0 var(--radius) var(--radius) 0;
+    background-color: var(--color-text-primary);
+    color: var(--color-on-primary);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    font-weight: 600;
+    font-size: 0.875rem;
 }
 
 .btn-primary:hover {
-    background-color: #0b5ed7;
+    background-color: #1a2e44;
 }
 
 .text-input {
     flex: 1;
     padding: 0.5rem 0.75rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius) 0 0 var(--radius);
-    font-size: 1rem;
+    border: 1px solid var(--glass-border-light);
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+    font-size: 0.9rem;
+    color: var(--color-text-primary);
+}
+
+.text-input::placeholder {
+    color: var(--color-text-secondary);
 }
 
 .text-input:focus {
     outline: none;
-    border-color: var(--color-primary);
+    border-color: var(--color-accent);
 }
 
-/* Grid de productos (se migrará a glass en el siguiente paso) */
+/* Grid de productos */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -261,53 +260,81 @@ body {
 .product-card {
     display: flex;
     flex-direction: column;
-    background-color: var(--color-white);
-    border-radius: var(--radius);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-2xl);
     overflow: hidden;
 }
 
-.product-card__image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.product-card__placeholder {
-    height: 200px;
+.product-card__image-wrap {
+    height: 220px;
+    padding: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f1f1f1;
-    color: var(--color-muted);
-    border-bottom: 1px solid #e0e0e0;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.product-card__image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.15));
+}
+
+.product-card__placeholder {
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: var(--color-text-secondary);
 }
 
 .product-card__body {
-    padding: 1rem;
+    padding: 1.25rem;
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-top: 1px solid var(--glass-border-dim);
+}
+
+.product-card__title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
 }
 
 .product-card__title {
-    margin: 0 0 0.5rem;
-    font-size: 1.1rem;
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
 }
 
-.product-card__category {
-    margin: 0 0 0.5rem;
-    color: var(--color-muted);
-    font-size: 0.9rem;
+.badge-glass {
+    background-color: var(--glass-bg-strong);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border-light);
+    color: var(--color-text-primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
 }
 
 .product-card__price {
     margin: 0;
-    color: var(--color-success);
-    font-size: 1.1rem;
+    color: var(--color-accent);
+    font-size: 1.25rem;
+    font-weight: 700;
 }
 
 .product-card__footer {
-    padding: 1rem;
-    border-top: 1px solid #eee;
+    padding: 1.25rem;
+    border-top: 1px solid var(--glass-border-dim);
 }
 
 .buy-form__row {

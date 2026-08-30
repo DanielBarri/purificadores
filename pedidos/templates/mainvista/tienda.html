@@ -3,22 +3,24 @@
 
 <div class="product-grid">
     {% for producto in productos %}
-    <div class="product-card">
+    <div class="product-card glass-panel">
         {% if producto.imagen %}
-        <img
-            src="{{ producto.imagen.url }}"
-            class="product-card__image"
-            alt="{{ producto.nombre }}" />
+        <div class="product-card__image-wrap">
+            <img
+                src="{{ producto.imagen.url }}"
+                class="product-card__image"
+                alt="{{ producto.nombre }}" />
+        </div>
         {% else %}
         <div class="product-card__placeholder">
             <span>Sin imagen</span>
         </div>
         {% endif %}
         <div class="product-card__body">
-            <h5 class="product-card__title">{{ producto.nombre }}</h5>
-            <p class="product-card__category">
-                Categoría: {{ producto.get_categoria_display }}
-            </p>
+            <div class="product-card__title-row">
+                <h5 class="product-card__title">{{ producto.nombre }}</h5>
+                <span class="badge-glass">{{ producto.get_categoria_display }}</span>
+            </div>
             <h6 class="product-card__price">${{ producto.precio }}</h6>
         </div>
         <div class="product-card__footer">
