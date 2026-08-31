@@ -10,14 +10,25 @@ el resto — no requieren cotización manual separada).
 
 Lo que ya existe y funciona:
 - Modelos `Producto` (nombre, modelo, precio, categoría, disponible, imagen)
-  y `Pedido` (cliente, producto único vía FK, estado, total, fecha).
-- Vista de catálogo (`tienda_view`) que lista productos disponibles.
+  y `Pedido` (cliente, producto vía FK — ya se guarda correctamente al
+  comprar —, estado, total, fecha).
+- Landing page pública en `/` (hero con imagen real, sección de
+  tecnología/beneficios, productos destacados tomados en vivo del
+  catálogo) y catálogo completo en `/tienda/` (`tienda_view`).
+- Sistema de diseño propio en CSS nativo (`static/css/base.css`): sin
+  Bootstrap ni Tailwind, paleta y tipografía (Inter) definidas por
+  variables CSS, efecto glassmorphism (`.glass-panel`), fondo animado
+  con orbes, íconos Material Symbols. Aplicado a `base.html`, la landing,
+  `tienda.html` y `pedidos.html` (tabla con insignias de estado
+  semánticas) — migración de Bootstrap a CSS nativo completa en todo
+  el sitio.
 - Botón "Comprar" que crea un `Pedido` directo, sin carrito ni checkout.
 - Vista de pedidos (`pedidos_view`) protegida para rol "Vendedor", con
   cambio de estado manual (Por Confirmar → ... → Entregado).
 - Panel de administración Django con carga masiva de productos vía CSV.
 - API REST de solo lectura (`/api/productos/`, `/api/pedidos/`).
-- Configuración de entorno vía `.env` (SECRET_KEY, DEBUG, ALLOWED_HOSTS).
+- Configuración de entorno vía `.env` (SECRET_KEY, DEBUG, ALLOWED_HOSTS)
+  y `requirements.txt` generado.
 
 Limitación central: **un pedido solo puede tener un producto**. No existe
 carrito, ni checkout, ni cuentas de cliente, ni pagos.
@@ -48,10 +59,9 @@ marketing y confianza de marca.
 
 - [x] Quitar el CDN de Bootstrap de `base.html` y reemplazarlo por CSS
       nativo propio (`static/css/`).
-- [x] Reescribir `tienda.html` sin clases de Bootstrap (con sistema de
-      diseño glassmorphism: paleta, tipografía Inter, íconos Material
-      Symbols, fondo animado). `pedidos.html` queda pendiente, se hará
-      en una sesión posterior.
+- [x] Reescribir `tienda.html` y `pedidos.html` sin clases de Bootstrap
+      (sistema de diseño glassmorphism: paleta, tipografía Inter, íconos
+      Material Symbols, fondo animado).
 - [x] Hero con propuesta de valor (agua purificada, ósmosis inversa),
       con imagen real (`static/img/hero.jpg`).
 - [x] Sección de beneficios / tecnología (ósmosis inversa, filtros y
