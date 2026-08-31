@@ -1,8 +1,8 @@
-{% extends 'mainvista/base.html' %} {% block content %}
+{% extends 'mainvista/base.html' %} {% load static %} {% block content %}
 
 <section class="hero glass-panel">
     <div class="hero__content">
-        <span class="badge-glass">Ósmosis Inversa de Alto Rendimiento</span>
+        
         <h1 class="hero__title">Agua pura para tu hogar y tu industria</h1>
         <p class="hero__text">
             Sistemas de purificación por ósmosis inversa de múltiples etapas,
@@ -15,7 +15,10 @@
         </div>
     </div>
     <div class="hero__visual">
-        <span class="material-symbols-outlined">water_drop</span>
+        <img
+            src="{% static 'img/hero.jpg' %}"
+            alt="Sistema de purificación de agua Aquosan"
+            class="hero__image" />
     </div>
 </section>
 

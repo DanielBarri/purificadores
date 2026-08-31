@@ -46,16 +46,23 @@ carrito, ni checkout, ni cuentas de cliente, ni pagos.
 Página de entrada distinta del catálogo, visible sin login, para
 marketing y confianza de marca.
 
-- [ ] Quitar el CDN de Bootstrap de `base.html` y reemplazarlo por CSS
+- [x] Quitar el CDN de Bootstrap de `base.html` y reemplazarlo por CSS
       nativo propio (`static/css/`).
-- [ ] Reescribir `tienda.html` y `pedidos.html` sin clases de Bootstrap.
-- [ ] Hero con propuesta de valor (agua purificada, ósmosis inversa).
-- [ ] Sección de categorías destacadas con link a la tienda.
-- [ ] Sección de beneficios / por qué elegir Aquosan.
+- [x] Reescribir `tienda.html` sin clases de Bootstrap (con sistema de
+      diseño glassmorphism: paleta, tipografía Inter, íconos Material
+      Symbols, fondo animado). `pedidos.html` queda pendiente, se hará
+      en una sesión posterior.
+- [x] Hero con propuesta de valor (agua purificada, ósmosis inversa),
+      con imagen real (`static/img/hero.jpg`).
+- [x] Sección de beneficios / tecnología (ósmosis inversa, filtros y
+      refacciones, uso doméstico e industrial).
+- [x] Sección de productos destacados (tomados en vivo del catálogo)
+      con link a la tienda.
 - [ ] Testimonios o garantías (si aplica).
-- [ ] Llamado a la acción hacia `/tienda/`.
-- [ ] Footer con contacto, redes sociales, datos legales.
-- [ ] Ruta raíz (`/`) muestra landing; catálogo se mueve a `/tienda/`.
+- [x] Llamado a la acción hacia `/tienda/` (hero y sección de destacados).
+- [ ] Footer con contacto, redes sociales, datos legales — por ahora
+      solo tiene marca y enlaces internos (Tienda/Pedidos).
+- [x] Ruta raíz (`/`) muestra landing; catálogo se movió a `/tienda/`.
 
 ## Fase 2 — Tienda / Catálogo
 - [ ] Página de detalle de producto (`/tienda/producto/<id>/`) con
