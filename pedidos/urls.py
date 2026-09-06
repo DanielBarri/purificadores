@@ -12,7 +12,11 @@ urlpatterns = [
     path('tienda/', views.tienda_view, name='tienda'),
     path('tienda/producto/<int:producto_id>/', views.producto_detalle_view, name='producto_detalle'),
     path('pedidos/', views.pedidos_view, name='pedidos'),
-    path('pedido/nuevo/', views.crear_pedido_action, name='crear_pedido'),
+    path('carrito/', views.carrito_view, name='carrito'),
+    path('carrito/agregar/<int:producto_id>/', views.agregar_al_carrito_action, name='agregar_al_carrito'),
+    path('carrito/actualizar/<int:producto_id>/', views.actualizar_carrito_action, name='actualizar_carrito'),
+    path('carrito/eliminar/<int:producto_id>/', views.eliminar_del_carrito_action, name='eliminar_del_carrito'),
+    path('carrito/confirmar/', views.confirmar_pedido_action, name='confirmar_pedido'),
     path('pedido/<int:pedido_id>/estado/', views.cambiar_estado_action, name='cambiar_estado'),
 
     # Rutas API

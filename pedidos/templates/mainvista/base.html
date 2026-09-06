@@ -32,6 +32,12 @@
                 <div class="nav-links">
                     <a class="nav-link" href="{% url 'landing' %}">Inicio</a>
                     <a class="nav-link" href="{% url 'tienda' %}">Tienda</a>
+                    <a class="nav-link nav-link--cart" href="{% url 'carrito' %}" aria-label="Carrito">
+                        <span class="material-symbols-outlined">shopping_cart</span>
+                        {% if carrito_cantidad > 0 %}
+                        <span class="cart-badge">{{ carrito_cantidad }}</span>
+                        {% endif %}
+                    </a>
                     <a class="nav-link" href="{% url 'pedidos' %}">Pedidos</a>
                     <a class="nav-link" href="/admin/" target="_blank">Panel Admin</a>
                 </div>

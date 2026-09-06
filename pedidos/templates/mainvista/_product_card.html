@@ -1,44 +1,36 @@
 <div class="product-card glass-panel">
     <a href="{% url 'producto_detalle' producto.id %}" class="product-card__link">
-        {% if producto.imagen %}
-        <div class="product-card__image-wrap">
+        <div class="product-card__media">
+            {% if producto.imagen %}
             <img
                 src="{{ producto.imagen.url }}"
                 class="product-card__image"
                 alt="{{ producto.nombre }}" />
-        </div>
-        {% else %}
-        <div class="product-card__placeholder">
-            <span>Sin imagen</span>
-        </div>
-        {% endif %}
-        <div class="product-card__body">
-            <div class="product-card__title-row">
-                <h5 class="product-card__title">{{ producto.nombre }}</h5>
-                <span class="badge-glass">{{ producto.get_categoria_display }}</span>
+            {% else %}
+            <div class="product-card__placeholder">
+                <span>Sin imagen</span>
             </div>
-            <h6 class="product-card__price">${{ producto.precio }}</h6>
-            {% if producto.agotado %}
-            <span class="badge-glass badge-glass--out">Agotado</span>
             {% endif %}
+            <span class="badge-glass product-card__category">{{ producto.get_categoria_display }}</span>
+            {% if producto.agotado %}
+            <span class="badge-glass badge-glass--out product-card__stock-tag">Agotado</span>
+            {% endif %}
+        </div>
+        <div class="product-card__body">
+            <h5 class="product-card__title">{{ producto.nombre }}</h5>
+            <h6 class="product-card__price">${{ producto.precio }}</h6>
         </div>
     </a>
     <div class="product-card__footer">
         {% if producto.agotado %}
         <p class="product-card__unavailable">No disponible por el momento</p>
         {% else %}
-        <form action="{% url 'crear_pedido' %}" method="POST">
+        <form action="{% url 'agregar_al_carrito' producto.id %}" method="POST">
             {% csrf_token %}
-            <input type="hidden" name="producto_id" value="{{ producto.id }}" />
-            <div class="buy-form__row">
-                <input
-                    type="text"
-                    name="cliente_nombre"
-                    class="text-input"
-                    placeholder="Tu nombre"
-                    required />
-                <button type="submit" class="btn btn-primary">Comprar</button>
-            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+                <span class="material-symbols-outlined product-card__cart-icon">shopping_cart</span>
+                Agregar al carrito
+            </button>
         </form>
         {% endif %}
     </div>

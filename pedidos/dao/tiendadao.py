@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from django.db import models
-from pedidos.models import Producto, Pedido
+from pedidos.models import Producto, Pedido, LineaPedido
 
 class ProductoDAO:
     """Capa DAO para operaciones de Productos"""
@@ -39,15 +39,23 @@ class PedidoDAO:
         return Pedido.objects.all().order_by('-fecha')
 
     @staticmethod
-    def crear_pedido_con_producto(cliente_nombre: str, producto_id: int) -> Optional[Pedido]:
-        producto = ProductoDAO.obtener_por_id(producto_id)
-        if producto:
-            return Pedido.objects.create(
-                cliente_nombre=cliente_nombre,
-                producto=producto,
-                total=producto.precio
+    def crear_pedido_desde_carrito(cliente_nombre: str, carrito) -> Optional[Pedido]:
+        items = list(carrito)
+        if not items:
+            return None
+
+        pedido = Pedido.objects.create(
+            cliente_nombre=cliente_nombre,
+            total=carrito.total(),
+        )
+        for item in items:
+            LineaPedido.objects.create(
+                pedido=pedido,
+                producto=item['producto'],
+                cantidad=item['cantidad'],
+                precio_unitario=item['producto'].precio,
             )
-        return None
+        return pedido
 
     @staticmethod
     def cambiar_estado(pedido_id: int, nuevo_estado: str) -> Optional[Pedido]:

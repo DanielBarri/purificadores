@@ -1,0 +1,67 @@
+{% extends 'mainvista/base.html' %} {% block content %}
+<h2 class="page-title">Tu Carrito</h2>
+
+{% if carrito|length > 0 %}
+<div class="table-wrap glass-panel">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in carrito %}
+            <tr>
+                <td>{{ item.producto.nombre }}</td>
+                <td>${{ item.producto.precio }}</td>
+                <td>
+                    <form
+                        action="{% url 'actualizar_carrito' item.producto.id %}"
+                        method="POST"
+                        class="cart-quantity-form">
+                        {% csrf_token %}
+                        <input
+                            type="number"
+                            name="cantidad"
+                            value="{{ item.cantidad }}"
+                            min="1"
+                            class="text-input quantity-input" />
+                        <button type="submit" class="btn btn-secondary">Actualizar</button>
+                    </form>
+                </td>
+                <td>${{ item.subtotal }}</td>
+                <td>
+                    <form action="{% url 'eliminar_del_carrito' item.producto.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-secondary">Quitar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="cart-summary glass-panel">
+    <h3 class="cart-summary__total">Total: ${{ carrito.total }}</h3>
+    <form action="{% url 'confirmar_pedido' %}" method="POST" class="cart-summary__form">
+        {% csrf_token %}
+        <input
+            type="text"
+            name="cliente_nombre"
+            class="text-input"
+            placeholder="Tu nombre"
+            required />
+        <button type="submit" class="btn btn-primary">Confirmar Pedido</button>
+    </form>
+</div>
+
+{% else %}
+<p>Tu carrito está vacío. <a href="{% url 'tienda' %}">Ir a la tienda</a>.</p>
+{% endif %}
+
+{% endblock %}

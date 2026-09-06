@@ -39,18 +39,16 @@
             {% if producto.agotado %}
             <p class="product-card__unavailable">No disponible por el momento</p>
             {% else %}
-            <form action="{% url 'crear_pedido' %}" method="POST">
+            <form action="{% url 'agregar_al_carrito' producto.id %}" method="POST" class="add-to-cart-form">
                 {% csrf_token %}
-                <input type="hidden" name="producto_id" value="{{ producto.id }}" />
-                <div class="buy-form__row">
-                    <input
-                        type="text"
-                        name="cliente_nombre"
-                        class="text-input"
-                        placeholder="Tu nombre"
-                        required />
-                    <button type="submit" class="btn btn-primary">Comprar</button>
-                </div>
+                <input
+                    type="number"
+                    name="cantidad"
+                    class="text-input quantity-input"
+                    value="1"
+                    min="1"
+                    max="{{ producto.stock }}" />
+                <button type="submit" class="btn btn-primary">Agregar al carrito</button>
             </form>
             {% endif %}
         </div>

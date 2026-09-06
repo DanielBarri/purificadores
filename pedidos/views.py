@@ -9,6 +9,7 @@ from pedidos.models import Producto
 from pedidos.dao.tiendadao import ProductoDAO, PedidoDAO
 from pedidos.serializers import ProductoSerializer, PedidoSerializer
 from django.http import Http404
+from pedidos.carrito import Carrito
 
 
 # ==========================================
@@ -55,13 +56,50 @@ def pedidos_view(request):
     pedidos = PedidoDAO.obtener_todos()
     return render(request, 'mainvista/pedidos.html', {'pedidos': pedidos})
 
-def crear_pedido_action(request):
-    """Procesa el formulario web de un nuevo pedido"""
+
+# ==========================================
+# 1.1 VISTAS WEB CARRITO (HTML)
+# ==========================================
+
+def agregar_al_carrito_action(request, producto_id):
+    """Agrega un producto al carrito de la sesión"""
+    if request.method == 'POST':
+        producto = ProductoDAO.obtener_por_id(producto_id)
+        cantidad = int(request.POST.get('cantidad', 1))
+        if producto and not producto.agotado:
+            carrito = Carrito(request)
+            carrito.agregar(producto, cantidad)
+    return redirect('carrito')
+
+def carrito_view(request):
+    """Muestra el contenido del carrito de la sesión"""
+    carrito = Carrito(request)
+    return render(request, 'mainvista/carrito.html', {'carrito': carrito})
+
+def actualizar_carrito_action(request, producto_id):
+    """Actualiza la cantidad de un producto en el carrito"""
+    if request.method == 'POST':
+        cantidad = int(request.POST.get('cantidad', 1))
+        carrito = Carrito(request)
+        carrito.actualizar_cantidad(producto_id, cantidad)
+    return redirect('carrito')
+
+def eliminar_del_carrito_action(request, producto_id):
+    """Elimina un producto del carrito"""
+    if request.method == 'POST':
+        carrito = Carrito(request)
+        carrito.eliminar(producto_id)
+    return redirect('carrito')
+
+def confirmar_pedido_action(request):
+    """Convierte el carrito actual en un Pedido con sus líneas"""
     if request.method == 'POST':
         cliente_nombre = request.POST.get('cliente_nombre')
-        producto_id = request.POST.get('producto_id')
-        PedidoDAO.crear_pedido_con_producto(cliente_nombre, producto_id)
-    return redirect('pedidos')
+        carrito = Carrito(request)
+        pedido = PedidoDAO.crear_pedido_desde_carrito(cliente_nombre, carrito)
+        if pedido:
+            carrito.vaciar()
+    return redirect('tienda')
 
 def cambiar_estado_action(request, pedido_id):
     """Actualiza el estado de un pedido desde la vista web"""

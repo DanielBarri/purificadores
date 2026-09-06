@@ -90,14 +90,21 @@ marketing y confianza de marca.
 Requiere rediseñar el modelo de datos: un pedido debe soportar
 **múltiples productos y cantidades**, no un FK único como hoy.
 
-- [ ] Nuevo modelo `LineaPedido` con `producto`, `cantidad`,
-      `precio_unitario`, y FK a `Pedido`. Retirar el FK único
-      `Pedido.producto`.
-- [ ] Carrito persistente en sesión (funciona sin login todavía).
-- [ ] Botón "Agregar al carrito" en vez de "Comprar" directo.
-- [ ] Vista de carrito: ver/editar cantidades, quitar producto, subtotal.
-- [ ] Cálculo de total dinámico (suma de líneas; envío se agrega en
-      fase futura con Skydropx).
+- [x] Nuevo modelo `LineaPedido` con `producto`, `cantidad`,
+      `precio_unitario`, y FK a `Pedido`. Se retiró el FK único
+      `Pedido.producto` (dato de prueba existente no se migró, se
+      descartó a propósito por ser solo data de desarrollo).
+- [x] Carrito persistente en sesión (`pedidos/carrito.py`, clase
+      `Carrito`; funciona sin login todavía).
+- [x] Botón "Agregar al carrito" en vez de "Comprar" directo.
+- [x] Vista de carrito (`/carrito/`): ver/editar cantidades, quitar
+      producto, subtotal por línea.
+- [x] Cálculo de total dinámico (suma de líneas; envío se agrega en
+      fase futura con Skydropx). Confirmar pedido (`/carrito/confirmar/`)
+      crea el `Pedido` + sus `LineaPedido` y vacía el carrito; por ahora
+      solo pide `cliente_nombre` (checkout formal con dirección es
+      Fase 5) y redirige a `/tienda/` (no a `/pedidos/`, porque esa
+      vista está restringida al rol Vendedor).
 
 ## Fase 4 — Cuentas de cliente
 Prerrequisito para el checkout, ya que la compra exige sesión iniciada.

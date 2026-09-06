@@ -42,8 +42,6 @@ class Pedido(models.Model):
         ('ENTREGADO', 'Entregado'),
     ]
     cliente_nombre = models.CharField(max_length=100)
-    # Relacion 
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='pedidos', null=True, blank=True)
     fecha = models.DateTimeField(auto_now_add=True)
     estado = models.CharField(max_length=20, choices=ESTADOS, default='POR_CONFIRMAR')
     total = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
@@ -51,3 +49,16 @@ class Pedido(models.Model):
 
     def __str__(self):
         return f"Orden #{self.id} - {self.cliente_nombre} ({self.estado})"
+
+class LineaPedido(models.Model):
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='lineas')
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='lineas_pedido')
+    cantidad = models.PositiveIntegerField(default=1)
+    precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+
+    @property
+    def subtotal(self):
+        return self.precio_unitario * self.cantidad
+
+    def __str__(self):
+        return f"{self.cantidad} x {self.producto.nombre} (Pedido #{self.pedido_id})"

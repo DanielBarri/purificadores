@@ -6,7 +6,7 @@ from django import forms
 from django.shortcuts import render, redirect
 from django.urls import path
 from django.contrib import messages
-from .models import Producto, Pedido
+from .models import Producto, Pedido, LineaPedido
 
 
 # Register your models here.
@@ -74,9 +74,13 @@ class ProductoAdmin(admin.ModelAdmin):
         }
         return render(request, "admin/csv_form.html", context)
 
+class LineaPedidoInline(admin.TabularInline):
+    model = LineaPedido
+    extra = 0
+
 @admin.register(Pedido)
 class PedidoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'cliente_nombre','producto', 'estado', 'total', 'fecha')
+    list_display = ('id', 'cliente_nombre', 'estado', 'total', 'fecha')
     list_filter = ('estado', 'fecha')
     search_fields = ('cliente_nombre',)
-
+    inlines = [LineaPedidoInline]
