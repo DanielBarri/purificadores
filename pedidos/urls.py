@@ -1,6 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from . import views
+from django.contrib.auth import views as auth_views
 
 router = DefaultRouter()
 router.register(r'api/productos', views.ProductoViewSet, basename='api_productos')
@@ -12,6 +13,10 @@ urlpatterns = [
     path('tienda/', views.tienda_view, name='tienda'),
     path('tienda/producto/<int:producto_id>/', views.producto_detalle_view, name='producto_detalle'),
     path('pedidos/', views.pedidos_view, name='pedidos'),
+    path('cuenta/registro/', views.registro_view, name='registro'),
+    path('cuenta/login/', auth_views.LoginView.as_view(template_name='mainvista/login.html'), name='login'),
+    path('cuenta/logout/', auth_views.LogoutView.as_view(next_page='landing'), name='logout'),
+    path('cuenta/pedidos/', views.mis_pedidos_view, name='mis_pedidos'),
     path('carrito/', views.carrito_view, name='carrito'),
     path('carrito/agregar/<int:producto_id>/', views.agregar_al_carrito_action, name='agregar_al_carrito'),
     path('carrito/actualizar/<int:producto_id>/', views.actualizar_carrito_action, name='actualizar_carrito'),

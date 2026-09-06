@@ -1,15 +1,14 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required, user_passes_test
-
-# Create your views here.
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-
 from pedidos.models import Producto
 from pedidos.dao.tiendadao import ProductoDAO, PedidoDAO
 from pedidos.serializers import ProductoSerializer, PedidoSerializer
 from django.http import Http404
 from pedidos.carrito import Carrito
+from django.contrib.auth import login
+from pedidos.forms import RegistroClienteForm
 
 
 # ==========================================
@@ -56,6 +55,23 @@ def pedidos_view(request):
     pedidos = PedidoDAO.obtener_todos()
     return render(request, 'mainvista/pedidos.html', {'pedidos': pedidos})
 
+def registro_view(request):
+    """Registro de una cuenta de cliente"""
+    if request.method == 'POST':
+        form = RegistroClienteForm(request.POST)
+        if form.is_valid():
+            usuario = form.save()
+            login(request, usuario)
+            return redirect('tienda')
+    else:
+        form = RegistroClienteForm()
+    return render(request, 'mainvista/registro.html', {'form': form})
+
+@login_required
+def mis_pedidos_view(request):
+    """Muestra el historial de pedidos del cliente autenticado"""
+    pedidos = PedidoDAO.obtener_por_cliente(request.user)
+    return render(request, 'mainvista/mis_pedidos.html', {'pedidos': pedidos})
 
 # ==========================================
 # 1.1 VISTAS WEB CARRITO (HTML)
@@ -91,12 +107,13 @@ def eliminar_del_carrito_action(request, producto_id):
         carrito.eliminar(producto_id)
     return redirect('carrito')
 
+@login_required
 def confirmar_pedido_action(request):
     """Convierte el carrito actual en un Pedido con sus líneas"""
     if request.method == 'POST':
-        cliente_nombre = request.POST.get('cliente_nombre')
+        cliente_nombre = request.user.get_full_name() or request.user.username
         carrito = Carrito(request)
-        pedido = PedidoDAO.crear_pedido_desde_carrito(cliente_nombre, carrito)
+        pedido = PedidoDAO.crear_pedido_desde_carrito(cliente_nombre, carrito, request.user)
         if pedido:
             carrito.vaciar()
     return redirect('tienda')

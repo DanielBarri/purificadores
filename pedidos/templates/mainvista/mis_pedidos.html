@@ -1,0 +1,42 @@
+{% extends 'mainvista/base.html' %} {% block content %}
+<h2 class="page-title">Mis Pedidos</h2>
+
+<div class="table-wrap glass-panel">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th># Orden</th>
+                <th>Fecha</th>
+                <th>Artículos</th>
+                <th>Estado</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido in pedidos %}
+            <tr>
+                <td>#{{ pedido.id }}</td>
+                <td>{{ pedido.fecha|date:"d/m/Y" }}</td>
+                <td>
+                    {% for linea in pedido.lineas.all %}
+                    {{ linea.cantidad }} x {{ linea.producto.nombre }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <span
+                        class="status-badge {% if pedido.estado == 'POR_CONFIRMAR' %}status-badge--info{% elif pedido.estado == 'RECHAZADO' %}status-badge--danger{% elif pedido.estado == 'PAGADO' %}status-badge--success{% elif pedido.estado == 'PREPARANDO_PEDIDO' %}status-badge--warning{% elif pedido.estado == 'LISTO_PARA_ENTREGA' %}status-badge--primary{% elif pedido.estado == 'EN_TRANSITO' %}status-badge--secondary{% else %}status-badge--success{% endif %}">
+                        {{ pedido.get_estado_display }}
+                    </span>
+                </td>
+                <td>${{ pedido.total }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">Todavía no tienes pedidos.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

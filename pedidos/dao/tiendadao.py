@@ -39,13 +39,18 @@ class PedidoDAO:
         return Pedido.objects.all().order_by('-fecha')
 
     @staticmethod
-    def crear_pedido_desde_carrito(cliente_nombre: str, carrito) -> Optional[Pedido]:
+    def obtener_por_cliente(usuario) -> List[Pedido]:
+        return Pedido.objects.filter(cliente=usuario).order_by('-fecha')
+
+    @staticmethod
+    def crear_pedido_desde_carrito(cliente_nombre: str, carrito, usuario) -> Optional[Pedido]:
         items = list(carrito)
         if not items:
             return None
 
         pedido = Pedido.objects.create(
             cliente_nombre=cliente_nombre,
+            cliente=usuario,
             total=carrito.total(),
         )
         for item in items:

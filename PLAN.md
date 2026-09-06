@@ -101,21 +101,26 @@ Requiere rediseñar el modelo de datos: un pedido debe soportar
       producto, subtotal por línea.
 - [x] Cálculo de total dinámico (suma de líneas; envío se agrega en
       fase futura con Skydropx). Confirmar pedido (`/carrito/confirmar/`)
-      crea el `Pedido` + sus `LineaPedido` y vacía el carrito; por ahora
-      solo pide `cliente_nombre` (checkout formal con dirección es
-      Fase 5) y redirige a `/tienda/` (no a `/pedidos/`, porque esa
-      vista está restringida al rol Vendedor).
+      crea el `Pedido` + sus `LineaPedido` y vacía el carrito; redirige
+      a `/tienda/` (no a `/pedidos/`, porque esa vista está restringida
+      al rol Vendedor). Desde la Fase 4, `cliente_nombre` ya no se pide
+      en el formulario — se toma del usuario autenticado.
 
 ## Fase 4 — Cuentas de cliente
 Prerrequisito para el checkout, ya que la compra exige sesión iniciada.
 
-- [ ] Modelo de cliente (puede extender `User` de Django o usar un
-      `Cliente` con OneToOne a `User`).
-- [ ] Registro e inicio de sesión de clientes (distinto del login de
-      "Vendedor"/staff que ya existe).
-- [ ] El carrito puede armarse sin login, pero al ir a pagar redirige a
-      login/registro si no hay sesión.
-- [ ] Historial de pedidos del cliente autenticado.
+- [x] Modelo de cliente: se optó por usar el `User` de Django
+      directamente (FK `Pedido.cliente`) en vez de un modelo `Cliente`
+      aparte, ya que no se necesitan campos extra todavía (dirección,
+      teléfono llegan en la Fase 5).
+- [x] Registro (`/cuenta/registro/`) e inicio de sesión de clientes
+      (`/cuenta/login/`, con `LoginURL`/`LogoutView` de Django),
+      distinto del login de "Vendedor"/staff que ya existe
+      (`/admin/login`, mismo `User` pero acceso controlado por rol).
+- [x] El carrito puede armarse sin login, pero `confirmar_pedido_action`
+      (el botón "Confirmar Pedido" del carrito) exige sesión
+      (`@login_required`) y redirige a login/registro si no hay sesión.
+- [x] Historial de pedidos del cliente autenticado (`/cuenta/pedidos/`).
 
 ## Fase 5 — Checkout y Pedidos
 - [ ] Formulario de checkout: datos de contacto y dirección de envío

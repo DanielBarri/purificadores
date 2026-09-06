@@ -1,6 +1,9 @@
 from django import forms
 from .models import Producto
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
 
 class ProductoModelForm(forms.ModelForm):
     class Meta:
@@ -33,3 +36,16 @@ class ProductoModelForm(forms.ModelForm):
         if categoria == 'PURIFICADORES' and precio and precio > 200000:
             raise ValidationError("Un purificador no puede costar más de $200,000 MXN.")
         return cleaned_data
+
+class RegistroClienteForm(UserCreationForm):
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'text-input'}))
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'class': 'text-input'})
+        self.fields['password1'].widget.attrs.update({'class': 'text-input'})
+        self.fields['password2'].widget.attrs.update({'class': 'text-input'})

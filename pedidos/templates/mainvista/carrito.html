@@ -50,15 +50,10 @@
     <h3 class="cart-summary__total">Total: ${{ carrito.total }}</h3>
     <form action="{% url 'confirmar_pedido' %}" method="POST" class="cart-summary__form">
         {% csrf_token %}
-        <input
-            type="text"
-            name="cliente_nombre"
-            class="text-input"
-            placeholder="Tu nombre"
-            required />
         <button type="submit" class="btn btn-primary">Confirmar Pedido</button>
     </form>
 </div>
+
 
 {% else %}
 <p>Tu carrito está vacío. <a href="{% url 'tienda' %}">Ir a la tienda</a>.</p>

@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 
 
 def validar_precio_positivo(value):
@@ -42,6 +43,7 @@ class Pedido(models.Model):
         ('ENTREGADO', 'Entregado'),
     ]
     cliente_nombre = models.CharField(max_length=100)
+    cliente = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='pedidos')
     fecha = models.DateTimeField(auto_now_add=True)
     estado = models.CharField(max_length=20, choices=ESTADOS, default='POR_CONFIRMAR')
     total = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)

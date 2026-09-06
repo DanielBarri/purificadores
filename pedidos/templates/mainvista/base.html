@@ -32,13 +32,26 @@
                 <div class="nav-links">
                     <a class="nav-link" href="{% url 'landing' %}">Inicio</a>
                     <a class="nav-link" href="{% url 'tienda' %}">Tienda</a>
+                    {% if user.is_authenticated %}
+                    <a class="nav-link nav-link--icon" href="{% url 'mis_pedidos' %}" aria-label="Mis Pedidos">
+                        <span class="material-symbols-outlined">receipt_long</span>
+                    </a>
+                    {% endif %}
                     <a class="nav-link nav-link--cart" href="{% url 'carrito' %}" aria-label="Carrito">
                         <span class="material-symbols-outlined">shopping_cart</span>
                         {% if carrito_cantidad > 0 %}
                         <span class="cart-badge">{{ carrito_cantidad }}</span>
                         {% endif %}
                     </a>
-                    <a class="nav-link" href="{% url 'pedidos' %}">Pedidos</a>
+                    {% if user.is_authenticated %}
+                    <form action="{% url 'logout' %}" method="POST" class="nav-logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-link nav-link--button nav-link--auth">Cerrar Sesión</button>
+                    </form>
+                    {% else %}
+                    <a class="nav-link nav-link--auth" href="{% url 'login' %}">Iniciar Sesión</a>
+                    {% endif %}
+                    <a class="nav-link" href="{% url 'pedidos' %}">Panel Vendedor</a>
                     <a class="nav-link" href="/admin/" target="_blank">Panel Admin</a>
                 </div>
             </nav>

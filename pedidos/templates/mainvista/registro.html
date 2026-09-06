@@ -1,0 +1,21 @@
+{% extends 'mainvista/base.html' %} {% block content %}
+<div class="auth-form glass-panel">
+    <h2 class="page-title">Crear Cuenta</h2>
+    <form method="POST" class="auth-form__fields">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-field">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+            <p class="form-field__error">{{ field.errors|striptags }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary btn-block">Crear Cuenta</button>
+    </form>
+    <p class="auth-form__switch">
+        ¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión</a>
+    </p>
+</div>
+{% endblock %}
