@@ -80,42 +80,7 @@
     </div>
     <div class="product-grid">
         {% for producto in productos_destacados %}
-        <div class="product-card glass-panel">
-            {% if producto.imagen %}
-            <div class="product-card__image-wrap">
-                <img
-                    src="{{ producto.imagen.url }}"
-                    class="product-card__image"
-                    alt="{{ producto.nombre }}" />
-            </div>
-            {% else %}
-            <div class="product-card__placeholder">
-                <span>Sin imagen</span>
-            </div>
-            {% endif %}
-            <div class="product-card__body">
-                <div class="product-card__title-row">
-                    <h5 class="product-card__title">{{ producto.nombre }}</h5>
-                    <span class="badge-glass">{{ producto.get_categoria_display }}</span>
-                </div>
-                <h6 class="product-card__price">${{ producto.precio }}</h6>
-            </div>
-            <div class="product-card__footer">
-                <form action="{% url 'crear_pedido' %}" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="producto_id" value="{{ producto.id }}" />
-                    <div class="buy-form__row">
-                        <input
-                            type="text"
-                            name="cliente_nombre"
-                            class="text-input"
-                            placeholder="Tu nombre"
-                            required />
-                        <button type="submit" class="btn btn-primary">Comprar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        {% include 'mainvista/_product_card.html' %}
         {% empty %}
         <p>Aún no hay productos disponibles.</p>
         {% endfor %}

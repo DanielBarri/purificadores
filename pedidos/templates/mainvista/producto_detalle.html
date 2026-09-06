@@ -1,0 +1,60 @@
+{% extends 'mainvista/base.html' %} {% block content %}
+
+<a href="{% url 'tienda' %}" class="nav-link">&larr; Volver a la tienda</a>
+
+<div class="product-detail glass-panel">
+    <div class="product-detail__gallery">
+        {% if producto.imagen %}
+        <img
+            src="{{ producto.imagen.url }}"
+            class="product-detail__image"
+            alt="{{ producto.nombre }}" />
+        {% else %}
+        <div class="product-detail__placeholder">
+            <span>Sin imagen</span>
+        </div>
+        {% endif %}
+    </div>
+    <div class="product-detail__info">
+        <div class="product-card__title-row">
+            <h1 class="product-detail__title">{{ producto.nombre }}</h1>
+            <span class="badge-glass">{{ producto.get_categoria_display }}</span>
+        </div>
+        {% if producto.modelo %}
+        <p class="product-detail__modelo">Modelo: {{ producto.modelo }}</p>
+        {% endif %}
+        <p class="product-detail__price">${{ producto.precio }}</p>
+
+        {% if producto.agotado %}
+        <span class="badge-glass badge-glass--out">Agotado</span>
+        {% else %}
+        <span class="product-detail__stock">Disponibles: {{ producto.stock }}</span>
+        {% endif %}
+
+        {% if producto.descripcion %}
+        <p class="product-detail__description">{{ producto.descripcion }}</p>
+        {% endif %}
+
+        <div class="product-detail__buy">
+            {% if producto.agotado %}
+            <p class="product-card__unavailable">No disponible por el momento</p>
+            {% else %}
+            <form action="{% url 'crear_pedido' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="producto_id" value="{{ producto.id }}" />
+                <div class="buy-form__row">
+                    <input
+                        type="text"
+                        name="cliente_nombre"
+                        class="text-input"
+                        placeholder="Tu nombre"
+                        required />
+                    <button type="submit" class="btn btn-primary">Comprar</button>
+                </div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

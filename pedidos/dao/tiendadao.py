@@ -1,4 +1,6 @@
 from typing import List, Optional
+
+from django.db import models
 from pedidos.models import Producto, Pedido
 
 class ProductoDAO:
@@ -9,8 +11,13 @@ class ProductoDAO:
         return Producto.objects.all()
 
     @staticmethod
-    def obtener_disponibles() -> List[Producto]:
-        return Producto.objects.filter(disponible=True)
+    def obtener_disponibles(categoria: Optional[str] = None, query: Optional[str] = None) -> List[Producto]:
+        productos = Producto.objects.filter(disponible=True)
+        if categoria:
+            productos = productos.filter(categoria=categoria)
+        if query:
+            productos = productos.filter(models.Q(nombre__icontains=query) | models.Q(modelo__icontains=query))
+        return productos
 
     @staticmethod
     def obtener_destacados(cantidad: int = 3) -> List[Producto]:

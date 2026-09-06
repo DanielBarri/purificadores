@@ -68,19 +68,23 @@ marketing y confianza de marca.
       refacciones, uso doméstico e industrial).
 - [x] Sección de productos destacados (tomados en vivo del catálogo)
       con link a la tienda.
-- [ ] Testimonios o garantías (si aplica).
+- [x] Testimonios o garantías (banner de garantía + 3 testimonios de
+      ejemplo; se reemplazarán por reseñas reales cuando existan).
 - [x] Llamado a la acción hacia `/tienda/` (hero y sección de destacados).
-- [ ] Footer con contacto, redes sociales, datos legales — por ahora
-      solo tiene marca y enlaces internos (Tienda/Pedidos).
+- [x] Footer con contacto, redes sociales, datos legales (columnas
+      Navegación/Síguenos/Legal; enlaces de redes y legal son
+      placeholders `#` hasta tener URLs reales).
 - [x] Ruta raíz (`/`) muestra landing; catálogo se movió a `/tienda/`.
 
 ## Fase 2 — Tienda / Catálogo
-- [ ] Página de detalle de producto (`/tienda/producto/<id>/`) con
-      descripción extendida, especificaciones técnicas, galería.
-- [ ] Filtro por categoría en la vista de tienda.
-- [ ] Buscador por nombre/modelo.
-- [ ] Campo `descripcion` y `stock` (cantidad disponible) en `Producto`.
-- [ ] Ocultar automáticamente productos sin stock (o mostrar "agotado").
+- [x] Página de detalle de producto (`/tienda/producto/<id>/`) con
+      descripción y galería de una imagen (especificaciones técnicas
+      extendidas quedan pendientes de contenido real del negocio).
+- [x] Filtro por categoría en la vista de tienda (`?categoria=`).
+- [x] Buscador por nombre/modelo (`?q=`).
+- [x] Campo `descripcion` y `stock` (cantidad disponible) en `Producto`.
+- [x] Mostrar "Agotado" en productos sin stock (se optó por mostrar en
+      vez de ocultar, para no perder visibilidad del catálogo).
 
 ## Fase 3 — Carrito de compras
 Requiere rediseñar el modelo de datos: un pedido debe soportar

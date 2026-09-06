@@ -18,9 +18,15 @@ class Producto(models.Model):
     precio = models.DecimalField(max_digits=10, decimal_places=2, validators=[validar_precio_positivo])
     categoria = models.CharField(max_length=30, choices=CATEGORIAS)
     disponible = models.BooleanField(default=True)
+    descripcion = models.TextField(null=True, blank=True)
+    stock = models.PositiveIntegerField(default=0)
 
     # Soporte para archivos multimedia (Media Files)
     imagen = models.ImageField(upload_to='productos/', null=True, blank=True)
+
+    @property
+    def agotado(self):
+        return self.stock == 0
 
     def __str__(self):
         return f"{self.nombre} - ${self.precio}"

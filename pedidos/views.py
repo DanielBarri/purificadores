@@ -5,8 +5,11 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
+from pedidos.models import Producto
 from pedidos.dao.tiendadao import ProductoDAO, PedidoDAO
 from pedidos.serializers import ProductoSerializer, PedidoSerializer
+from django.http import Http404
+
 
 # ==========================================
 # 0. ROLES
@@ -27,8 +30,23 @@ def landing_view(request):
 
 def tienda_view(request):
     """Muestra el catálogo del la tienda al cliente utilizando el DAO"""
-    productos = ProductoDAO.obtener_disponibles()
-    return render(request, 'mainvista/tienda.html', {'productos': productos})
+    categoria = request.GET.get('categoria')
+    query = request.GET.get('q')
+    productos = ProductoDAO.obtener_disponibles(categoria=categoria, query=query)
+    context = {
+        'productos': productos,
+        'categorias': Producto.CATEGORIAS,
+        'categoria_actual': categoria,
+        'query_actual': query or '',
+    }
+    return render(request, 'mainvista/tienda.html', context)
+
+def producto_detalle_view(request, producto_id):
+    """Muestra el detalle de un producto especifico"""
+    producto = ProductoDAO.obtener_por_id(producto_id)
+    if not producto:
+        raise Http404("Producto no encontrado")
+    return render(request, 'mainvista/producto_detalle.html', {'producto': producto})
 
 @login_required
 @user_passes_test(es_vendedor, login_url='/admin/login')
