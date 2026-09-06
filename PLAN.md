@@ -154,7 +154,19 @@ Prerrequisito para el checkout, ya que la compra exige sesión iniciada.
 - [ ] Servir archivos estáticos/media en producción (Whitenoise, S3, o
       similar).
 - [ ] Definir hosting/despliegue (Railway, Render, DigitalOcean, VPS).
-- [ ] Pruebas automatizadas (actualmente `pedidos/tests.py` está vacío).
+- [ ] Pruebas automatizadas — `pedidos/tests.py` ya tiene 14 pruebas de
+      humo (tienda, carrito, cuentas: `TiendaSmokeTest`,
+      `CarritoSmokeTest`, `CuentasSmokeTest`), agregadas fuera de orden
+      de fases. Falta cobertura de casos borde y de las fases restantes
+      conforme se construyan.
+- [x] Auditoría de seguridad (2026-09-06): se encontraron y corrigieron
+      2 hallazgos High — `cambiar_estado_action` sin `@login_required`/
+      `@user_passes_test(es_vendedor)` (cualquiera podía cambiar el
+      estado de cualquier pedido) y `/api/pedidos/` sin permisos DRF
+      (exponía todos los pedidos de todos los clientes sin login).
+      Ambos corregidos + pruebas de regresión agregadas. Pendiente para
+      una futura auditoría: validar `cantidad` positiva en el carrito
+      antes de conectar Mercado Pago (Fase 6).
 - [ ] HTTPS y hardening de settings (`SECURE_*` de Django) para
       producción.
 

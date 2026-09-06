@@ -2,7 +2,8 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required, user_passes_test
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from pedidos.models import Producto
+from rest_framework.permissions import IsAuthenticated, BasePermission
+from pedidos.models import Producto, Pedido
 from pedidos.dao.tiendadao import ProductoDAO, PedidoDAO
 from pedidos.serializers import ProductoSerializer, PedidoSerializer
 from django.http import Http404
@@ -18,6 +19,11 @@ from pedidos.forms import RegistroClienteForm
 def es_vendedor(user):
     """Verifica si el usuario tiene rol de vendedor"""
     return user.is_authenticated and (user.groups.filter(name='Vendedor').exists() or user.is_superuser)
+
+class EsVendedorAPI(BasePermission):
+    """Permiso DRF equivalente a es_vendedor(), para las vistas de la API"""
+    def has_permission(self, request, view):
+        return es_vendedor(request.user)
 
 # ==========================================
 # 1. VISTAS WEB (HTML)
@@ -118,11 +124,14 @@ def confirmar_pedido_action(request):
             carrito.vaciar()
     return redirect('tienda')
 
+@login_required
+@user_passes_test(es_vendedor, login_url='/admin/login')
 def cambiar_estado_action(request, pedido_id):
     """Actualiza el estado de un pedido desde la vista web"""
     if request.method == 'POST':
         nuevo_estado = request.POST.get('nuevo_estado')
-        PedidoDAO.cambiar_estado(pedido_id, nuevo_estado)
+        if nuevo_estado in dict(Pedido.ESTADOS):
+            PedidoDAO.cambiar_estado(pedido_id, nuevo_estado)
     return redirect('pedidos')
 
 
@@ -137,6 +146,8 @@ class ProductoViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
 class PedidoViewSet(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated, EsVendedorAPI]
+
     def list(self, request):
         pedidos = PedidoDAO.obtener_todos()
         serializer = PedidoSerializer(pedidos, many=True)
