@@ -1,19 +1,19 @@
 nombre,modelo,precio,categoria
-Membrana de Repuesto 200 GPD,PK-EASY-M200US,0,FILTROS_REFACCIONES
-Sistema de Ósmosis Inversa 100 GPD,PKRO100-5P,0,PURIFICADORES
-Sistema de Ósmosis Inversa 100 GPD con UV,PKRO100-6UVPM,0,PURIFICADORES
-Sistema de Ósmosis Inversa 400 GPD con UV,PKRO400-6UVP,0,PURIFICADORES
-Kit de Mantenimiento 12 Meses (Ósmosis + Ultrafiltración),KIT12-ROUF,0,FILTROS_REFACCIONES
-Kit de Mantenimiento 12 Meses (Ósmosis 100G/400G con UV),KIT12-ROUFUV,0,FILTROS_REFACCIONES
-Kit de Mantenimiento 24 Meses (Ósmosis 100 GPD),KIT24-RO100,0,FILTROS_REFACCIONES
-Kit de Mantenimiento 24 Meses (Ósmosis 100 GPD con UV),KIT24-RO100UV,0,FILTROS_REFACCIONES
-Kit de Mantenimiento 24 Meses (Ósmosis 400 GPD con UV),KIT24-RO400UV,0,FILTROS_REFACCIONES
-Sistema de Ósmosis Inversa Industrial 3 Membranas,PK-ROI-3M-A-DM,0,PURIFICADORES_INDUSTRIALES
-Sistema de Ósmosis Inversa 50 GPD con UV,PKRO50-6UVPM,0,PURIFICADORES
-Sistema de Ósmosis Inversa 200 GPD con UV,PKRO200-6UVPM,0,PURIFICADORES
-Sistema de Ósmosis Inversa 600 GPD con UV,PKRO600-6UVPM,0,PURIFICADORES
-Sistema de Ósmosis Inversa Alto Flujo 400 GPD,PK-EASY-400US,0,PURIFICADORES
-Sistema de Ósmosis Inversa Alto Flujo 600 GPD,PK-EASY-600US,0,PURIFICADORES
-Sistema de Ósmosis Inversa Alto Flujo 800 GPD,PK-EASY-800US,0,PURIFICADORES
-Sistema de Ósmosis Inversa Industrial 1 Membrana,PK-ROI-1M-A-DM,0,PURIFICADORES_INDUSTRIALES
-Sistema de Ósmosis Inversa Industrial 2 Membranas,PK-ROI-2M-A-DM,0,PURIFICADORES_INDUSTRIALES
+Membrana de Repuesto 200 GPD,PK-EASY-M200US,460,FILTROS_REFACCIONES
+Sistema de Ósmosis Inversa 100 GPD,PKRO100-5P,4080,PURIFICADORES
+Sistema de Ósmosis Inversa 100 GPD con UV,PKRO100-6UVPM,5160,PURIFICADORES
+Sistema de Ósmosis Inversa 400 GPD con UV,PKRO400-6UVP,7320,PURIFICADORES
+Kit de Mantenimiento 12 Meses (Ósmosis + Ultrafiltración),KIT12-ROUF,2640,FILTROS_REFACCIONES
+Kit de Mantenimiento 12 Meses (Ósmosis 100G/400G con UV),KIT12-ROUFUV,3600,FILTROS_REFACCIONES
+Kit de Mantenimiento 24 Meses (Ósmosis 100 GPD),KIT24-RO100,2280,FILTROS_REFACCIONES
+Kit de Mantenimiento 24 Meses (Ósmosis 100 GPD con UV),KIT24-RO100UV,2760,FILTROS_REFACCIONES
+Kit de Mantenimiento 24 Meses (Ósmosis 400 GPD con UV),KIT24-RO400UV,3020,FILTROS_REFACCIONES
+Sistema de Ósmosis Inversa Industrial 3 Membranas,PK-ROI-3M-A-DM,90000,PURIFICADORES_INDUSTRIALES
+Sistema de Ósmosis Inversa 50 GPD con UV,PKRO50-6UVPM,4680,PURIFICADORES
+Sistema de Ósmosis Inversa 200 GPD con UV,PKRO200-6UVPM,6120,PURIFICADORES
+Sistema de Ósmosis Inversa 600 GPD con UV,PKRO600-6UVPM,8640,PURIFICADORES
+Sistema de Ósmosis Inversa Alto Flujo 400 GPD,PK-EASY-400US,10200,PURIFICADORES
+Sistema de Ósmosis Inversa Alto Flujo 600 GPD,PK-EASY-600US,8040,PURIFICADORES
+Sistema de Ósmosis Inversa Alto Flujo 800 GPD,PK-EASY-800US,8160,PURIFICADORES
+Sistema de Ósmosis Inversa Industrial 1 Membrana,PK-ROI-1M-A-DM,50400,PURIFICADORES_INDUSTRIALES
+Sistema de Ósmosis Inversa Industrial 2 Membranas,PK-ROI-2M-A-DM,69600,PURIFICADORES_INDUSTRIALES

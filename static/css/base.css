@@ -45,6 +45,8 @@ body {
         var(--color-bg-end) 100%
     );
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
@@ -201,6 +203,7 @@ body {
 
 .page-content {
     padding: 2rem 1rem;
+    flex: 1;
 }
 
 /* Utilidades generales */
