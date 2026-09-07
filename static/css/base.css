@@ -89,7 +89,7 @@ body {
     border-radius: 50%;
     filter: blur(100px);
     opacity: 0.6;
-    animation: float 25s infinite ease-in-out alternate;
+    animation: float 10s infinite ease-in-out alternate;
 }
 
 .orb-1 {
@@ -133,10 +133,10 @@ body {
         transform: translate(0, 0) scale(1);
     }
     50% {
-        transform: translate(80px, 40px) scale(1.1);
+        transform: translate(280px, 180px) scale(1.25);
     }
     100% {
-        transform: translate(-40px, 80px) scale(0.9);
+        transform: translate(-220px, 260px) scale(0.85);
     }
 }
 
