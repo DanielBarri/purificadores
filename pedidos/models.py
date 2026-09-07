@@ -11,7 +11,7 @@ def validar_precio_positivo(value):
 class Producto(models.Model):
     CATEGORIAS = [
         ('PURIFICADORES', 'Purificadores'),
-        ('FILTOS_REFACCIONES', 'Filtros y Refacciones'),
+        ('FILTROS_REFACCIONES', 'Filtros y Refacciones'),
         ('PURIFICADORES_INDUSTRIALES', 'Purificadores Industriales'),
     ]
     nombre = models.CharField(max_length=100)

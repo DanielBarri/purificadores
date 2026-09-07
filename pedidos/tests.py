@@ -38,7 +38,7 @@ class CarritoSmokeTest(TestCase):
         self.producto = Producto.objects.create(
             nombre='Filtro de Prueba',
             precio=500,
-            categoria='FILTOS_REFACCIONES',
+            categoria='FILTROS_REFACCIONES',
             stock=10,
         )
         self.usuario = User.objects.create_user(username='cliente1', password='clave12345')
