@@ -149,11 +149,18 @@ Prerrequisito para el checkout, ya que la compra exige sesión iniciada.
 - [ ] Reportes básicos: ventas por periodo, productos más vendidos.
 
 ## Fase 8 — Infraestructura y producción
-- [ ] Elegir base de datos de producción (¿se queda en SQLite o pasa a
-      PostgreSQL?).
-- [ ] Servir archivos estáticos/media en producción (Whitenoise, S3, o
-      similar).
-- [ ] Definir hosting/despliegue (Railway, Render, DigitalOcean, VPS).
+- [x] Base de datos de producción: **PostgreSQL en Supabase** (vía
+      `DATABASE_URL`, conexión por el "Session pooler" — la conexión
+      directa falla en Render por ser IPv6-only). SQLite se mantiene
+      como respaldo automático solo para desarrollo local.
+- [x] Estáticos en producción: **Whitenoise** (`CompressedManifestStaticFilesStorage`,
+      solo cuando `DEBUG=False`). Media (imágenes de producto) se deja
+      sin resolver por ahora — el disco de Render free tier es efímero,
+      así que las imágenes subidas por el admin no persisten entre
+      redeploys; ver `[[deploy_render_supabase]]` para la decisión.
+- [x] Hosting/despliegue: **Render** (Web Service, free tier), deploy
+      exitoso el 2026-09-07. Detalles completos, errores encontrados y
+      cómo se resolvieron en la memoria `[[deploy_render_supabase]]`.
 - [ ] Pruebas automatizadas — `pedidos/tests.py` ya tiene 14 pruebas de
       humo (tienda, carrito, cuentas: `TiendaSmokeTest`,
       `CarritoSmokeTest`, `CuentasSmokeTest`), agregadas fuera de orden
