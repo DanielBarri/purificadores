@@ -20,7 +20,8 @@ class CsvImportForm(forms.Form):
 
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre','modelo', 'precio', 'categoria', 'disponible')
+    list_display = ('id', 'nombre','modelo', 'precio', 'categoria', 'disponible', 'stock')
+    list_editable = ('stock',)
     list_filter = ('categoria', 'disponible')
     search_fields = ('nombre',)
 
